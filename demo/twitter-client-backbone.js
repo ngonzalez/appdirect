@@ -1,6 +1,4 @@
 
-var localStorageKey = "twitter-client"
-
 var TwitterContent = Backbone.Model.extend({
 
   initialize: function() {
