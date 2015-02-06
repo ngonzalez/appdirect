@@ -102,7 +102,7 @@ var TwitterUsersView = Backbone.View.extend({
     this.$el.append(new TwitterUserView({ model: $.extend(user.attributes, { count: user.getCount() }) }).render());
     _.each(this.$el.find("[data-name]"), function(element) {
       if ($(element).attr("data-name") == user.attributes.screen_name) {
-        this.loadTweetsContent($(element).find(".twitter_content"), user);
+        this.loadTweetsContent($(element).find(".twitter-content"), user);
       }
     }, this);
   },
@@ -130,9 +130,9 @@ var TwitterUsersView = Backbone.View.extend({
     _.each(this.collection, function(user) {
       if (user.attributes.screen_name == screen_name) {
         user.storeCount(count);
-        user_container.find(".twitter_content").html("");
+        user_container.find(".twitter-content").html("");
         user_container.find(".title-count").html(count)
-        this.loadTweetsContent(user_container.find(".twitter_content"), user);
+        this.loadTweetsContent(user_container.find(".twitter-content"), user);
       }
     }, this);
   },
