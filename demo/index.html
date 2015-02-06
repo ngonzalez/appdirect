@@ -30,22 +30,53 @@
             <div id="twitter-content"></div>
 
             <script type="text/template" id="item-template-user">
-                <div class="col-md-3">
+                <div class="col-md-3 user-container" data-name="<%= screen_name %>">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><%= screen_name %></h3>
+                            <h3 class="panel-title">
+                                Last <span class="title-count"><%= count %></span> tweets from <%= screen_name %>
+                                <div style="clear:both;"></div>
+                                <br />
+                                <ul class="tweets-count">
+                                  <li>10</li>
+                                  <li>20</li>
+                                  <li>30</li>
+                                </ul>
+                            </h3>
                         </div>
-                        <div class="panel-body twitter_content" data-user="<%= screen_name %>">
-                            <p>The 30 most recent tweets from @<%= screen_name %></p>
+                        <div class="panel-body twitter-container">
+                            <span class="twitter_content"></span>
                         </div>
                     </div>
                 </div>
             </script>
 
             <script type="text/template" id="item-template-tweet">
-                <p><%= id %></p>
-                <%= date %>
-                <%= text %>
+                <ul>
+                    <% if (in_reply_to_screen_name) { %>
+                        <li>
+                            <div class="alert alert-info" role="alert">
+                                Reply:
+                                <a href="<%= get_status_url({ id: in_reply_to_status_id_str, name: in_reply_to_screen_name }) %>" target="_blank">
+                                    <%= in_reply_to_screen_name %>
+                                </a>
+                            <div>
+                        </li>
+                    <% } %>
+                    <% if (retweeted) { %>
+                        <li>
+                            <div class="alert alert-info" role="alert">
+                                RT:
+                                <a href="<%= get_status_url({ id: retweeted_status.id_str, name: retweeted_status.user.name }) %>" target="_blank">
+                                    <%= retweeted_status.user.name %>
+                                </a>
+                            </div>
+                        </li>
+                    <% } %>
+                    <li class="date"><%= date %></li>
+                    <li class="text"><%= text %></li>
+                </ul>
+                <hr />
             </script>
 
             <div style="clear:both;"></div>
@@ -90,9 +121,9 @@
         <script type="text/javascript" src="jquery/jquery-1.11.2.min.js"></script>
         <script type="text/javascript" src="underscore.js" /></script>
         <script type="text/javascript" src="backbone.js" /></script>
-        <script type="text/javascript" src="twitter-client-backbone.js" /></script>
         <script type="text/javascript" src="moment.min.js" /></script>
         <script type="text/javascript" src="bootstrap-3.3.2-dist/js/bootstrap.min.js" /></script>
+        <script type="text/javascript" src="twitter-client-backbone.js" /></script>
 
     </body>
 </html>
