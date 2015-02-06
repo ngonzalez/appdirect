@@ -12,7 +12,7 @@ app.use(cors());
 app.get('/twitter', function(req, res) {
 
   var count = parseInt(req.query.count);
-  if (isNaN(count) || count > 10) count = 10;
+  if (isNaN(count) || count > 30) count = 10;
 
   var client = new Twitter({
     consumer_key: 'CONSUMER_KEY',
