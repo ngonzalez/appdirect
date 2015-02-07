@@ -8,10 +8,8 @@ define([ "backbone", "views/twitter_content_view", "models/twitter_content" ], f
 
     render: function() {
       this.$el.html("");
-      _.each(this.collection, function(data) {
-        this.$el.append(new TwitterContentView({
-          model: new TwitterContent(data)
-        }).render());
+      _.each(this.collection.models, function(twitter_content) {
+        this.$el.append(new TwitterContentView({ model: twitter_content }).render());
       }, this);
     }
 

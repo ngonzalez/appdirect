@@ -1,5 +1,5 @@
 require.config({
-  'baseUrl': '/appdirect/js',
+  'baseUrl': 'js',
   'paths': {
     'jquery': 'vendor/jquery/jquery-1.11.2.min',
     'underscore': 'vendor/underscore',

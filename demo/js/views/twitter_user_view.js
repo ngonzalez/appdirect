@@ -1,4 +1,4 @@
-define([ "backbone", "views/twitter_contents_view", "bootstrap" ], function(Backbone, TwitterContentsView) {
+define([ "backbone", "views/twitter_contents_view", "collections/twitter_content_collection", "bootstrap" ], function(Backbone, TwitterContentsView, TwitterContentCollection) {
 
   var TwitterUserView = Backbone.View.extend({
 
@@ -20,7 +20,7 @@ define([ "backbone", "views/twitter_contents_view", "bootstrap" ], function(Back
         complete: _.bind(function(data) {
           new TwitterContentsView({
             el: this.$el.find(".twitter-content"),
-            collection: data.responseJSON
+            collection: new TwitterContentCollection(data.responseJSON)
           });
         }, this)
       });
