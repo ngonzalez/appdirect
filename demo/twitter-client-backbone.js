@@ -181,10 +181,7 @@ var TwitterContentsView = Backbone.View.extend({
 
 var TwitterUsersView = Backbone.View.extend({
 
-  el: $("#twitter-content"),
-
-  initialize: function(collection) {
-    this.collection = new TwitterUserCollection(collection);
+  initialize: function() {
     this.render();
   },
 
@@ -198,4 +195,11 @@ var TwitterUsersView = Backbone.View.extend({
 
 });
 
-new TwitterUsersView([ { screen_name: "AppDirect" }, { screen_name: "laughingsquid" }, { screen_name: "techcrunch" } ]);
+new TwitterUsersView({
+  el: $("#twitter-content"),
+  collection: new TwitterUserCollection([
+    { screen_name: "AppDirect" },
+    { screen_name: "laughingsquid" },
+    { screen_name: "techcrunch" }
+  ])
+});
