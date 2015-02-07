@@ -12,7 +12,7 @@ define([ "backbone" ], function(Backbone) {
       return "http://0.0.0.0:8080/twitter/" +
         "?" + $.param({
           screen_name: this.get('screen_name'),
-          count: this.getStorage().count
+          count: this.get('count')
         });
     },
 

@@ -20,11 +20,9 @@ define([ "backbone", "moment", "handlebars" ], function(Backbone, moment, Handle
           id = this.get('in_reply_to_user_id_str');
         }
         name = this.get('in_reply_to_screen_name');
-
       } else if (this.get('retweeted')) {
         id = this.get('retweeted_status').id_str;
         name = this.get('retweeted_status').user.name;
-
       } else {
         id = this.get('id_str');
         name = this.get('user').name;
