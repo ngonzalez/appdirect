@@ -14,7 +14,11 @@ define([ "backbone", "moment", "handlebars" ], function(Backbone, moment, Handle
       var id, name;
 
       if (this.get('in_reply_to_screen_name')) {
-        id = this.get('in_reply_to_status_id_str');
+        if (this.get('in_reply_to_status_id_str')) {
+          id = this.get('in_reply_to_status_id_str');
+        } else if (this.get('in_reply_to_user_id_str')) {
+          id = this.get('in_reply_to_user_id_str');
+        }
         name = this.get('in_reply_to_screen_name');
 
       } else if (this.get('retweeted')) {
