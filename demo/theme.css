@@ -1,62 +1,69 @@
 body {
-  font-family:Arial, Helvetica, sans-serif;
-  margin:0px auto;
-  width:980px;
-  line-height:1.2em;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px auto;
+  width: 980px;
+  line-height: 1.2em;
 }
 
 header, section {
   margin-bottom: 30px;
 }
 
-div.user-container {
-  width:300px;
+#twitter-content h3.panel-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 1px 1px #FFF;
 }
 
-div.twitter-container {
-  position:relative;
-  padding:220px 0;
-  margin:0;
-  overflow:scroll;
+#twitter-content div.user-container {
+  width: 300px;
 }
 
-div.twitter-container ul {
+#twitter-content div.twitter-container {
+  position: relative;
+  padding: 220px 0;
+  margin: 0;
+  overflow: scroll;
+}
+
+#twitter-content div.twitter-container ul {
   list-style-type: none;
-  margin:10px;
-  padding:0;
+  margin: 10px;
+  padding: 0;
 }
 
-ol.tweets-count li {
-  display:inline;
-}
-ol.tweets-count li:hover {
-  cursor:pointer;
-  color:blue;
+#twitter-content ol.tweets-count li {
+  display: inline;
 }
 
-div.twitter-container span.twitter-content {
-  position:absolute;
-  top:0;
-  list-style-type:none;
-  margin:10px 0;
-  padding:0;
-}
-
-span.twitter-content li a {
-  color:#000;
-  font-weight:bold;
-  text-decoration:none;
-}
-
-span.twitter-content li.text {
-  color: #555;
-}
-
-span.twitter-content li a:hover {
+#twitter-content ol.tweets-count li:hover {
+  cursor: pointer;
   color: blue;
 }
 
-span.twitter-content li.date {
+#twitter-content div.twitter-container span.twitter-content {
+  position: absolute;
+  top: 0;
+  list-style-type: none;
+  margin: 10px 0;
+  padding: 0;
+}
+
+#twitter-content span.twitter-content li a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#twitter-content span.twitter-content li.text {
+  color: #555;
+}
+
+#twitter-content span.twitter-content li a:hover {
+  color: blue;
+}
+
+#twitter-content span.twitter-content li.date {
   box-shadow: 1px 1px 1px 0 #DDD;
   border-radius: 1px;
   font-weight: bold;
@@ -65,7 +72,6 @@ span.twitter-content li.date {
   margin-bottom:5px;
 }
 
-span.twitter-content li.text {
+#twitter-content span.twitter-content li.text {
   font-size: 12px;
 }
-
