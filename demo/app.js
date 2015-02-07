@@ -4,8 +4,9 @@ require.config({
     'jquery': 'vendor/jquery/jquery-1.11.2.min',
     'underscore': 'vendor/underscore/underscore-min',
     'backbone': 'vendor/backbone/backbone-min',
+    'handlebars': 'vendor/handlebars/handlebars-v2.0.0',
     'bootstrap': 'vendor/bootstrap/bootstrap.min',
-    'moment': 'vendor/moment.min'
+    'moment': 'vendor/moment/moment.min'
   },
   'shim': {
     'underscore': {
@@ -23,13 +24,12 @@ require.config({
 
 require([
     "jquery",
-    "underscore",
     "backbone",
     "moment",
     "views/twitter_users_view",
     "collections/twitter_user_collection"
   ],
-  function($, _, Backbone, moment, TwitterUsersView, TwitterUserCollection) {
+  function($, Backbone, moment, TwitterUsersView, TwitterUserCollection) {
     $(function() {
 
       // https://github.com/moment/moment/issues/1407
