@@ -1,8 +1,37 @@
 
+// https://github.com/moment/moment/issues/1407
+moment.createFromInputFallback = function(config) {
+  config._d = new Date(config._i)
+};
+
 var TwitterContent = Backbone.Model.extend({
 
   initialize: function() {
     this.set('formatted_date', moment(this.get('created_at')).format('MMMM Do YYYY, h:mmA'));
+    this.set('status_url', this.getStatusUrl());
+  },
+
+  getStatusUrl: function() {
+    var id, name;
+
+    if (this.get('in_reply_to_screen_name')) {
+
+      id = this.get('in_reply_to_status_id_str');
+      name = this.get('in_reply_to_screen_name');
+
+    } else if (this.get('retweeted')) {
+
+      id = this.get('retweeted_status').id_str;
+      name = this.get('retweeted_status').user.name;
+
+    } else {
+
+      id = this.get('id_str');
+      name = this.get('name');
+
+    }
+
+    return "http://www.twitter.com/" + name + "/status/" + id;
   }
 
 });
@@ -49,13 +78,44 @@ var TwitterUserView = Backbone.View.extend({
 
   template: _.template($('#item-template-user').html()),
 
+  events: {
+      'click .glyphicon-repeat': 'reloadView',
+      'click .tweets-count': 'setCountAndReloadView'
+  },
+
   initialize: function() {
     this.render();
+    this.loadTweetsContent();
+    this.delegateEvents();
+  },
+
+  loadTweetsContent: function() {
+    this.model.fetch({
+      complete: _.bind(function(data) {
+        new TwitterContentsView({
+          el: this.$el.find(".twitter-content"),
+          collection: data.responseJSON
+        });
+      }, this)
+    });
   },
 
   render: function() {
-    return this.template(this.model.toJSON());
+    this.$el.html(this.template(this.model.toJSON()));
+    return this;
   },
+
+  reloadView: function(e) {
+    this.render();
+    this.loadTweetsContent();
+  },
+
+  setCountAndReloadView: function(e) {
+    var count = parseInt($(e.target).html());
+    if (isNaN(count)) return;
+    this.model.storeCount(count);
+    this.reloadView();
+  }
 
 });
 
@@ -75,15 +135,14 @@ var TwitterContentView = Backbone.View.extend({
 
 var TwitterContentsView = Backbone.View.extend({
 
-  initialize: function(element, collection) {
-    this.element = element;
-    this.collection = collection;
+  initialize: function() {
     this.render();
   },
 
   render: function() {
+    this.$el.html("");
     _.each(this.collection, function(data) {
-      this.element.append(new TwitterContentView({
+      this.$el.append(new TwitterContentView({
         model: new TwitterContent(data)
       }).render());
     }, this);
@@ -103,49 +162,13 @@ var TwitterUsersView = Backbone.View.extend({
   render: function() {
     _.each(this.collection.models, function(user) {
       user.initCount();
-      this.$el.append(new TwitterUserView({ model: user }).render());
-      _.each(this.$el.find("[data-name]"), function(element) {
-        if ($(element).attr("data-name") == user.get('screen_name')) {
-          this.loadTweetsContent($(element).find(".twitter-content"), user);
-        }
-      }, this);
+      var container = $(document.createElement("div"));
+      this.$el.append(container);
+      new TwitterUserView({ model: user, el: container }).render()
     }, this);
-  },
-
-  loadTweetsContent: function(element, user) {
-    user.fetch({
-      complete: _.bind(function(data) {
-        new TwitterContentsView(element, data.responseJSON);
-      }, this)
-    });
-  },
-
-  events: {
-      'click .tweets-count': 'setCount'
-  },
-
-  setCount: function(e) {
-
-    var count = parseInt($(e.target).html());
-    if (isNaN(count)) return;
-
-    var user_container = $(e.target).closest(".user-container");
-    var screen_name = user_container.attr("data-name");
-
-    _.each(this.collection.models, function(user) {
-      if (user.get('screen_name') == screen_name) {
-        user.storeCount(count);
-        user_container.find(".twitter-content").html("");
-        user_container.find(".title-count").html(count)
-        this.loadTweetsContent(user_container.find(".twitter-content"), user);
-      }
-    }, this);
-  },
+  }
 
 });
 
 new TwitterUsersView([ { screen_name: "AppDirect" }, { screen_name: "laughingsquid" }, { screen_name: "techcrunch" } ]);
 
-function get_status_url(options) {
-  return "http://www.twitter.com/" + options.name + "/status/" + options.id;
-}

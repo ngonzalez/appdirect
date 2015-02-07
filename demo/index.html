@@ -37,6 +37,7 @@
                                 Last <span class="title-count"><%= count %></span> tweets from <%= screen_name %>
                                 <div style="clear:both;"></div>
                                 <br />
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                                 <ul class="tweets-count">
                                   <li>10</li>
                                   <li>20</li>
@@ -57,7 +58,7 @@
                         <li>
                             <div class="alert alert-info" role="alert">
                                 Reply:
-                                <a href="<%= get_status_url({ id: in_reply_to_status_id_str, name: in_reply_to_screen_name }) %>" target="_blank">
+                                <a href="<%= status_url %>" target="_blank">
                                     <%= in_reply_to_screen_name %>
                                 </a>
                             <div>
@@ -67,7 +68,7 @@
                         <li>
                             <div class="alert alert-info" role="alert">
                                 RT:
-                                <a href="<%= get_status_url({ id: retweeted_status.id_str, name: retweeted_status.user.name }) %>" target="_blank">
+                                <a href="<%= status_url %>" target="_blank">
                                     <%= retweeted_status.user.name %>
                                 </a>
                             </div>
