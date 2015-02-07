@@ -189,7 +189,7 @@ var TwitterUsersView = Backbone.View.extend({
     _.each(this.collection.models, function(user) {
       var container = $(document.createElement("div"));
       this.$el.append(container);
-      new TwitterUserView({ model: user, el: container }).render()
+      new TwitterUserView({ model: user, el: container }).render();
     }, this);
   }
 
