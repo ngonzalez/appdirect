@@ -19,4 +19,4 @@ You should now see this output in the console:
 Server started: http://0.0.0.0:8080
 ```
 
-2/ Move the folder demo to your web server (Nginx, Apache) public folder and access the files from your browser ..
+2/ Move the folder "demo" to your web server (Nginx, Apache) public folder and access the files from your browser ..
