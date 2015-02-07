@@ -44,12 +44,25 @@ span.twitter-content li a {
   text-decoration:none;
 }
 
+span.twitter-content li.text {
+  color: #555;
+}
+
+span.twitter-content li.text a {
+  text-shadow: 1px 1px 0 #FAFAFA;
+}
+
 span.twitter-content li a:hover {
   color: blue;
 }
 
 span.twitter-content li.date {
+  -webkit-box-shadow: 2px 2px 1px 0 #DDD;
+  box-shadow: 2px 2px 1px 0 #DDD;
   font-weight: bold;
+  background: #FAFAFA;
+  padding: 3px;
+  margin-bottom:5px;
 }
 
 span.twitter-content li.text {

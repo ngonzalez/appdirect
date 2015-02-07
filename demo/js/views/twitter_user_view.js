@@ -1,13 +1,15 @@
-define([ "backbone", "views/twitter_contents_view", "collections/twitter_content_collection", "bootstrap" ], function(Backbone, TwitterContentsView, TwitterContentCollection) {
+define([ "backbone", "handlebars",
+         "views/twitter_contents_view", "collections/twitter_content_collection",
+         "bootstrap" ], function(Backbone, Handlebars, TwitterContentsView, TwitterContentCollection) {
 
   var TwitterUserView = Backbone.View.extend({
 
-    template: _.template($('#item-template-user').html()),
+    template: Handlebars.compile($("#item-template-user").html()),
 
     events: {
-        'click .toggle-tools': 'toggleTools',
-        'click .glyphicon-repeat': 'reloadView',
-        'click .tweets-count': 'setCountAndReloadView'
+        "click .toggle-tools": "toggleTools",
+        "click .glyphicon-repeat": "reloadView",
+        "click .tweets-count": "setCountAndReloadView"
     },
 
     initialize: function() {
@@ -27,23 +29,13 @@ define([ "backbone", "views/twitter_contents_view", "collections/twitter_content
     },
 
     displayTooltips: function() {
-      this.$el.find('[data-toggle="tooltip"]').tooltip();
+      this.$el.find("[data-toggle='tooltip']").tooltip();
     },
 
     toggleTools: function(e) {
-
-      var tools = this.$el.find(".tools"),
-          tools_toggle = this.$el.find(".toggle-tools");
-
-      if (tools.is(":visible")) {
-        tools.addClass("hidden");
-        tools_toggle.removeClass("glyphicon-chevron-up");
-        tools_toggle.addClass("glyphicon-chevron-down");
-      } else {
-        tools.removeClass("hidden");
-        tools_toggle.addClass("glyphicon-chevron-up");
-        tools_toggle.removeClass("glyphicon-chevron-down");
-      }
+      this.$el.find(".tools").toggleClass("hidden");
+      this.$el.find(".toggle-tools").toggleClass("glyphicon-chevron-up");
+      this.$el.find(".toggle-tools").toggleClass("glyphicon-chevron-down");
     },
 
     render: function() {

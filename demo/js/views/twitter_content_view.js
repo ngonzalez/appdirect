@@ -1,8 +1,8 @@
-define([ "backbone" ], function(Backbone) {
+define([ "backbone", "handlebars" ], function(Backbone, Handlebars) {
 
   var TwitterContentView = Backbone.View.extend({
 
-    template: _.template($('#item-template-tweet').html()),
+    template: Handlebars.compile($("#item-template-tweet").html()),
 
     initialize: function() {
       this.render();

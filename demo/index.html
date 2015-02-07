@@ -35,7 +35,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                Last <span class="title-count"><%= count %></span> tweets from <%= screen_name %>
+                                Last <span class="title-count">{{ count }}</span> tweets from {{ screen_name }}
                                 <div style="clear:both;"></div>
                                 <br />
                                 <span class="glyphicon glyphicon-chevron-down toggle-tools" aria-hidden="true"></span>
@@ -60,28 +60,28 @@
 
             <script type="text/template" id="item-template-tweet">
                 <ul>
-                    <% if (in_reply_to_screen_name) { %>
+                    {{#if in_reply_to_screen_name }}
                         <li>
                             <div class="alert alert-info" role="alert">
                                 Reply:
-                                <a href="<%= status_url %>" target="_blank">
-                                    <%= in_reply_to_screen_name %>
+                                <a href="{{ status_url }}" target="_blank">
+                                    {{ in_reply_to_screen_name }}
                                 </a>
                             <div>
                         </li>
-                    <% } %>
-                    <% if (retweeted) { %>
+                    {{/if }}
+                    {{#if retweeted }}
                         <li>
                             <div class="alert alert-info" role="alert">
                                 RT:
-                                <a href="<%= status_url %>" target="_blank">
-                                    <%= retweeted_status.user.name %>
+                                <a href="{{ status_url }}" target="_blank">
+                                    {{ retweeted_status.user.name }}
                                 </a>
                             </div>
                         </li>
-                    <% } %>
-                    <li class="date"><%= formatted_date %></li>
-                    <li class="text"><%= text %></li>
+                    {{/if }}
+                    <li class="date">{{{ formatted_date }}}</li>
+                    <li class="text">{{{ formatted_content }}}</li>
                 </ul>
                 <hr />
             </script>
