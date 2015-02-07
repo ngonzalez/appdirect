@@ -13,7 +13,7 @@ brew is a package manager available on OSX (http://brew.sh)
 ```
 brew install node
 npm install cors express underscore twitter
-node node/twitter.js
+node twitter.js
 ```
 
 You should now see this output in the console:
