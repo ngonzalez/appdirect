@@ -99,6 +99,7 @@ var TwitterUserView = Backbone.View.extend({
   initialize: function() {
     this.render();
     this.loadTweetsContent();
+    this.displayTooltips();
     this.delegateEvents();
   },
 
@@ -111,6 +112,10 @@ var TwitterUserView = Backbone.View.extend({
         });
       }, this)
     });
+  },
+
+  displayTooltips: function() {
+    this.$el.find('[data-toggle="tooltip"]').tooltip();
   },
 
   toggleTools: function(e) {
@@ -137,6 +142,7 @@ var TwitterUserView = Backbone.View.extend({
   reloadView: function(e) {
     this.render();
     this.loadTweetsContent();
+    this.displayTooltips();
   },
 
   setCountAndReloadView: function(e) {
