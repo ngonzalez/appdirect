@@ -20,3 +20,5 @@ Server started: http://0.0.0.0:8080
 ```
 
 2/ Move the folder "demo" to your web server (Nginx, Apache) public folder and access the files from your browser ..
+
+Here is a screenshot of the page: http://i59.tinypic.com/10qbd5h.jpg
