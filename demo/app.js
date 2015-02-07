@@ -16,7 +16,7 @@ require.config({
       'deps': ['jquery']
     },
     'backbone': {
-      'deps': ['jquery', 'underscore'],
+      'deps': ['underscore'],
       'exports': 'Backbone'
     }
   }
@@ -25,27 +25,19 @@ require.config({
 require([
     "jquery",
     "backbone",
-    "moment",
     "views/twitter_users_view",
     "collections/twitter_user_collection"
   ],
-  function($, Backbone, moment, TwitterUsersView, TwitterUserCollection) {
-    $(function() {
+  function($, Backbone, TwitterUsersView, TwitterUserCollection) {
 
-      // https://github.com/moment/moment/issues/1407
-      moment.createFromInputFallback = function(config) {
-        config._d = new Date(config._i)
-      };
-
-      new TwitterUsersView({
-        el: $("#twitter-content"),
-        collection: new TwitterUserCollection([
-          { screen_name: "AppDirect" },
-          { screen_name: "laughingsquid" },
-          { screen_name: "techcrunch" }
-        ])
-      });
-
+    new TwitterUsersView({
+      el: $("#twitter-content"),
+      collection: new TwitterUserCollection([
+        { screen_name: "AppDirect" },
+        { screen_name: "laughingsquid" },
+        { screen_name: "techcrunch" }
+      ])
     });
+
   }
 );

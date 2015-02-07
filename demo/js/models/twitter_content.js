@@ -1,4 +1,4 @@
-define([ "backbone", "moment", "handlebars" ], function(Backbone, moment, Handlebars) {
+define([ "backbone", "moment" ], function(Backbone, moment) {
 
   var TwitterContent = Backbone.Model.extend({
 
@@ -40,7 +40,7 @@ define([ "backbone", "moment", "handlebars" ], function(Backbone, moment, Handle
     },
 
     getFormattedDate: function() {
-      return this.link({ href: this.getStatusUrl(), content: moment(this.get('created_at')).fromNow() });
+      return this.link({ href: this.getStatusUrl(), content: moment(Date.parse(this.get('created_at'))).fromNow() });
     },
 
     getFormattedContent: function() {
