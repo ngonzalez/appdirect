@@ -24,11 +24,10 @@ require.config({
 
 require([
     "jquery",
-    "backbone",
     "views/twitter_users_view",
     "collections/twitter_user_collection"
   ],
-  function($, Backbone, TwitterUsersView, TwitterUserCollection) {
+  function($, TwitterUsersView, TwitterUserCollection) {
 
     new TwitterUsersView({
       el: $("#twitter-content"),
