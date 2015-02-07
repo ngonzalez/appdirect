@@ -22,10 +22,10 @@ div.twitter-container ul {
   padding:0;
 }
 
-ul.tweets-count li {
+ol.tweets-count li {
   display:inline;
 }
-ul.tweets-count li:hover {
+ol.tweets-count li:hover {
   cursor:pointer;
   color:blue;
 }

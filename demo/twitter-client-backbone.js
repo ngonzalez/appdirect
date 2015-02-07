@@ -38,34 +38,46 @@ var TwitterContent = Backbone.Model.extend({
 
 var TwitterUser = Backbone.Model.extend({
 
+  default_count: 10,
+
+  initialize: function() {
+    this.initValue({ count: this.default_count });
+  },
+
   urlRoot: function() {
     return "http://0.0.0.0:8080/twitter/" +
       "?" + $.param({
         screen_name: this.get('screen_name'),
-        count: this.getCount()
+        count: this.getStorage().count
       });
   },
 
-  initCount: function() {
-    if (!this.getCount()) {
-      this.storeCount(10);
-      this.set('count', 10);
+  initValue: function(hash) {
+    var key = Object.keys(hash)[0], value = hash[key];
+    if (!this.getStorage() || typeof this.getStorage()[key] == "undefined") {
+      this.storeValue(hash);
+      this.set(key, value);
     } else {
-      this.set('count', this.getCount());
+      this.set(key, this.getStorage()[key]);
     }
+  },
+
+  updateValue: function(hash) {
+    this.storeValue(hash);
+    var key = Object.keys(hash)[0], value = hash[key];
+    this.set(key, value);
   },
 
   storageKey: function() {
     return "demo-app-" + this.get('screen_name');
   },
 
-  storeCount: function(count) {
-    localStorage.setItem(this.storageKey(), count);
-    this.set('count', count);
+  storeValue: function(hash) {
+    localStorage.setItem(this.storageKey(), JSON.stringify($.extend(this.getStorage(), hash)));
   },
 
-  getCount: function() {
-    return localStorage.getItem(this.storageKey());
+  getStorage: function() {
+    return JSON.parse(localStorage.getItem(this.storageKey()));
   }
 
 });
@@ -79,6 +91,7 @@ var TwitterUserView = Backbone.View.extend({
   template: _.template($('#item-template-user').html()),
 
   events: {
+      'click .toggle-tools': 'toggleTools',
       'click .glyphicon-repeat': 'reloadView',
       'click .tweets-count': 'setCountAndReloadView'
   },
@@ -100,6 +113,22 @@ var TwitterUserView = Backbone.View.extend({
     });
   },
 
+  toggleTools: function(e) {
+
+    var tools = this.$el.find(".tools"),
+        tools_toggle = this.$el.find(".toggle-tools");
+
+    if (tools.is(":visible")) {
+      tools.addClass("hidden");
+      tools_toggle.removeClass("glyphicon-chevron-up");
+      tools_toggle.addClass("glyphicon-chevron-down");
+    } else {
+      tools.removeClass("hidden");
+      tools_toggle.addClass("glyphicon-chevron-up");
+      tools_toggle.removeClass("glyphicon-chevron-down");
+    }
+  },
+
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     return this;
@@ -113,7 +142,7 @@ var TwitterUserView = Backbone.View.extend({
   setCountAndReloadView: function(e) {
     var count = parseInt($(e.target).html());
     if (isNaN(count)) return;
-    this.model.storeCount(count);
+    this.model.updateValue({ count: count })
     this.reloadView();
   }
 
@@ -161,7 +190,6 @@ var TwitterUsersView = Backbone.View.extend({
 
   render: function() {
     _.each(this.collection.models, function(user) {
-      user.initCount();
       var container = $(document.createElement("div"));
       this.$el.append(container);
       new TwitterUserView({ model: user, el: container }).render()
@@ -171,4 +199,3 @@ var TwitterUsersView = Backbone.View.extend({
 });
 
 new TwitterUsersView([ { screen_name: "AppDirect" }, { screen_name: "laughingsquid" }, { screen_name: "techcrunch" } ]);
-

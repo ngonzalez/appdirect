@@ -37,12 +37,17 @@
                                 Last <span class="title-count"><%= count %></span> tweets from <%= screen_name %>
                                 <div style="clear:both;"></div>
                                 <br />
-                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                                <ul class="tweets-count">
-                                  <li>10</li>
-                                  <li>20</li>
-                                  <li>30</li>
-                                </ul>
+                                <span class="glyphicon glyphicon-chevron-down toggle-tools" aria-hidden="true"></span>
+                                <div style="clear:both;"></div>
+                                <br />
+                                <div class="tools hidden">
+                                    <span class="glyphicon glyphicon-repeat" data-toggle="tooltip" data-original-title="Refresh" aria-hidden="true"></span>
+                                    <ol class="tweets-count" data-toggle="tooltip" data-original-title="Number of tweets">
+                                      <li>10</li>
+                                      <li>20</li>
+                                      <li>30</li>
+                                    </ol>
+                                </div>
                             </h3>
                         </div>
                         <div class="panel-body twitter-container">
@@ -125,6 +130,12 @@
         <script type="text/javascript" src="moment.min.js" /></script>
         <script type="text/javascript" src="bootstrap-3.3.2-dist/js/bootstrap.min.js" /></script>
         <script type="text/javascript" src="twitter-client-backbone.js" /></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+              $('[data-toggle="tooltip"]').tooltip()
+            });
+        </script>
 
     </body>
 </html>
