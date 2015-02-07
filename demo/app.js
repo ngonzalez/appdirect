@@ -2,8 +2,8 @@ require.config({
   'baseUrl': 'js',
   'paths': {
     'jquery': 'vendor/jquery/jquery-1.11.2.min',
-    'underscore': 'vendor/underscore',
-    'backbone': 'vendor/backbone',
+    'underscore': 'vendor/underscore/underscore-min',
+    'backbone': 'vendor/backbone/backbone-min',
     'bootstrap': 'vendor/bootstrap/bootstrap.min',
     'moment': 'vendor/moment.min'
   },
